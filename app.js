@@ -20,7 +20,7 @@ const userRoutes = require('./routes/users');
 const eateryRoutes = require('./routes/eateries');
 const reviewRoutes = require('./routes/reviews');
 
-const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/food-fun';
+const dbUrl = process.env.DB_URL;
 const secret = process.env.SECRET || 'topSecret';
 
 mongoose.connect(dbUrl, {
