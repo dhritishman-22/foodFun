@@ -17,12 +17,11 @@ const mongoSanitize = require('express-mongo-sanitize');
 const MongoDBStore = require('connect-mongo');
 
 const userRoutes = require('./routes/users');
-const campgroundRoutes = require('./routes/campgrounds');
+const eateryRoutes = require('./routes/eateries');
 const reviewRoutes = require('./routes/reviews');
 
-const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/yelp-camp';
-const secret = process.env.SECRET || 'thisshouldbeabettersecret';
-// 'mongodb://localhost:27017/yelp-camp'
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/food-fun';
+const secret = process.env.SECRET || 'topSecret';
 
 mongoose.connect(dbUrl, {
 	useNewUrlParser: true,
@@ -60,7 +59,7 @@ store.on('error', function(e) {
 const sessionConfig = {
 	store,
 	name: 'session',
-	secret,
+	secret: secret,
 	resave: false,
 	saveUninitialized: true,
 	cookie: {
@@ -89,8 +88,8 @@ app.use((req, res, next) => {
 });
 
 app.use('/', userRoutes);
-app.use('/campgrounds', campgroundRoutes);
-app.use('/campgrounds/:id/reviews', reviewRoutes);
+app.use('/eateries', eateryRoutes);
+app.use('/eateries/:id/reviews', reviewRoutes);
 
 app.get('/', (req, res) => {
 	res.render('home');
